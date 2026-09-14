@@ -11,14 +11,14 @@ router.get("/", (req, res) => {
 
 // Crear una película
 router.post("/", (req, res) => {
-  const { titulo, genero, año, imagen, sinopsis } = req.body;
+  const { titulo, genero, año, imageUrl, sinopsis } = req.body;
 
   // Validar campos obligatorios
   if (!titulo || !genero || !año) {
     return res.status(400).json({ error: "Faltan campos obligatorios: titulo, genero y año" });
   }
 
-  const nuevaPelicula = { id: contadorId++, titulo, genero, año, imagen, sinopsis };
+  const nuevaPelicula = { id: contadorId++, titulo, genero, año, imageUrl, sinopsis };
   peliculas.push(nuevaPelicula);
 
   res.status(201).json(nuevaPelicula);
@@ -33,13 +33,13 @@ router.put("/:id", (req, res) => {
     return res.status(404).json({ error: "Película no encontrada" });
   }
 
-  const { titulo, genero, año, imagen, sinopsis } = req.body;
+  const { titulo, genero, año, imageUrl, sinopsis } = req.body;
 
   // Actualizar solo los campos que vengan en el body
   if (titulo) pelicula.titulo = titulo;
   if (genero) pelicula.genero = genero;
   if (año) pelicula.año = año;
-  if (imagen) pelicula.imagen = imagen;
+  if (imageUrl) pelicula.imageUrl = imageUrl;
   if (sinopsis) pelicula.sinopsis = sinopsis;
 
   res.json(pelicula);

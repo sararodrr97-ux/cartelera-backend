@@ -1,9 +1,10 @@
 const express = require("express");
+const conectarBaseDatos = require("./config/baseDatos");
 const rutasUsuarios = require("./rutas/usuarios");
 const rutasPeliculas = require("./rutas/peliculas");
 
 const app = express();
-const PUERTO = 3000;
+const PUERTO = process.env.PUERTO || 3000;
 
 // Permitir peticiones CORS
 app.use((req, res, next) => {
@@ -22,6 +23,9 @@ app.use("/usuarios", rutasUsuarios);
 // Rutas de películas
 app.use("/peliculas", rutasPeliculas);
 
-app.listen(PUERTO, () => {
-  console.log(`Servidor escuchando en http://localhost:${PUERTO}`);
+// Conectar a la base de datos y arrancar el servidor
+conectarBaseDatos().then(() => {
+  app.listen(PUERTO, () => {
+    console.log(`Servidor escuchando en http://localhost:${PUERTO}`);
+  });
 });

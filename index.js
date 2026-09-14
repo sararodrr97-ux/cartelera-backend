@@ -1,5 +1,6 @@
 const express = require("express");
 const rutasUsuarios = require("./rutas/usuarios");
+const rutasPeliculas = require("./rutas/peliculas");
 
 const app = express();
 const PUERTO = 3000;
@@ -17,6 +18,9 @@ app.use(express.json());
 
 // Rutas de usuarios
 app.use("/usuarios", rutasUsuarios);
+
+// Rutas de películas
+app.use("/peliculas", rutasPeliculas);
 
 app.listen(PUERTO, () => {
   console.log(`Servidor escuchando en http://localhost:${PUERTO}`);
